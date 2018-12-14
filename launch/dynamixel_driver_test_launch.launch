@@ -1,0 +1,8 @@
+<launch>
+
+<!-- Launch Dynamixel Driver Test Node -->
+<node pkg="dynamixel_driver" type="dynamixel_driver_test_node" name="dynamixel_driver_test_node" output="screen">
+  <rosparam command="load" file="$(find dynamixel_driver)/config/dynamixel_driver_config.yaml" />
+</node>
+
+</launch>

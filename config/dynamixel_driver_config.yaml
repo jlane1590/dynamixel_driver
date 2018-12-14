@@ -1,0 +1,71 @@
+# Configuration file for dynamixel_driver_test_node
+
+# Dynamixel Settings
+dynamixel:
+  # Communication Settings
+  device_name: "/dev/ttyUSB0"
+  protocol_version: 1.0
+  baudrate: 1000000
+
+  # Motor Configuraton Parameters
+  motors:
+    - yaw
+    #- pitch_lower
+    #- roll_lower
+    #- pitch_upper
+    #- roll_upper
+  yaw:
+    id: 1
+    series: AX
+    cw_angle_limit: 307
+    ccw_angle_limit: 717
+    cw_margin: 1
+    ccw_margin: 1
+    cw_slope: 32
+    ccw_slope: 32
+    torque_limit: 1023
+    punch: 32
+  pitch_lower:
+    id: 2
+    series: AX
+    cw_angle_limit: 461
+    ccw_angle_limit: 563
+    cw_margin: 30
+    ccw_margin: 30
+    cw_slope: 64
+    ccw_slope: 64
+    torque_limit: 1023
+    punch: 32
+  roll_lower:
+    id: 3
+    series: AX
+    cw_angle_limit: 478
+    ccw_angle_limit: 546
+    cw_margin: 30
+    ccw_margin: 30
+    cw_slope: 64
+    ccw_slope: 64
+    torque_limit: 1023
+    punch: 32
+  pitch_upper:
+    id: 4
+    series: AX
+    cw_angle_limit: 444
+    ccw_angle_limit: 580
+    cw_margin: 30
+    ccw_margin: 30
+    cw_slope: 64
+    ccw_slope: 64
+    torque_limit: 1023
+    punch: 32
+  roll_upper:
+    id: 5
+    series: AX
+    cw_angle_limit: 461
+    ccw_angle_limit: 563
+    cw_margin: 30
+    ccw_margin: 30
+    cw_slope: 64
+    ccw_slope: 64
+    torque_limit: 1023
+    punch: 32
