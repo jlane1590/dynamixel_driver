@@ -279,6 +279,33 @@ bool DynamixelDriver::setGoalPosition(uint8_t id, uint16_t goal)
   return checkCommResult(dxl_comm_result_, dxl_error_);
 }
 
+bool DynamixelDriver::setGoalRadians(uint8_t id, double goal)
+{
+  uint16_t dxl_goal;
+  // check dynamixel series for conversion factors
+  for(std::size_t i = 0; i < num_dxl_; ++i)
+  {
+    if(dxl_configs_[i].id == id)
+    {
+      if(dxl_configs_[i].series == dxl_configuration::AX)
+      {
+        dxl_goal = 512 + (195.57*goal);
+      }
+      else if(dxl_configs_[i].series == dxl_configuration::MX64)
+      {
+        dxl_goal = 2048 + (651.9*goal);
+      }
+      else return false;
+    }
+  }
+
+  // send converted register goal value
+  dxl_comm_result_ = packet_handler_->write2ByteTxRx(port_handler_, id, dynamixel_constants::dxl_addr_ax_goal_position,
+                                                     dxl_goal, &dxl_error_);
+
+  return checkCommResult(dxl_comm_result_, dxl_error_);
+}
+
 bool DynamixelDriver::setMovingSpeed(uint8_t id, uint16_t speed)
 {
   dxl_comm_result_ = packet_handler_->write2ByteTxRx(port_handler_, id, dynamixel_constants::dxl_addr_ax_moving_speed,
@@ -403,6 +430,32 @@ bool DynamixelDriver::getPresentPosition(uint8_t id, uint16_t *position)
 {
   dxl_comm_result_ = packet_handler_->read2ByteTxRx(port_handler_, id, dynamixel_constants::dxl_addr_ax_position,
                                                     position, &dxl_error_);
+
+  return checkCommResult(dxl_comm_result_, dxl_error_);
+}
+
+bool DynamixelDriver::getPresentRadians(uint8_t id, double &radians)
+{
+  uint16_t dxl_pos;
+  dxl_comm_result_ = packet_handler_->read2ByteTxRx(port_handler_, id, dynamixel_constants::dxl_addr_ax_position,
+                                                    &dxl_pos, &dxl_error_);
+
+  // check dynamixel series for conversion factors
+  for(std::size_t i = 0; i < num_dxl_; ++i)
+  {
+    if(dxl_configs_[i].id == id)
+    {
+      if(dxl_configs_[i].series == dxl_configuration::AX)
+      {
+        radians = ((int)dxl_pos - 512)/(195.57);
+      }
+      else if(dxl_configs_[i].series == dxl_configuration::MX64)
+      {
+        radians = ((int)dxl_pos - 2048)/(651.9);
+      }
+      else return false;
+    }
+  }
 
   return checkCommResult(dxl_comm_result_, dxl_error_);
 }

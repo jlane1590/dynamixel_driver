@@ -32,6 +32,14 @@ int main(int argc, char **argv)
   ROS_INFO("CW Limit = %d", cw_limit);
   dynamixelDriver.getCCWAngleLimit(1, &ccw_limit);
   ROS_INFO("CCW Limit = %d", ccw_limit);
+
+  double joint_goal = 0.5;
+  double joint_position;
+  ROS_INFO("Joint goal: %f", joint_goal);
+  dynamixelDriver.setGoalRadians(1,joint_goal);
+  ros::Duration(2.0).sleep();
+  dynamixelDriver.getPresentRadians(1,joint_position);
+  ROS_INFO("Joint position: %f", joint_position);
 /*
   dynamixelDriver.setMovingSpeed(1, 90);
   dynamixelDriver.setGoalPosition(1, 710);

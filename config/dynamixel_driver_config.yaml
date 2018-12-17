@@ -16,7 +16,7 @@ dynamixel:
     #- roll_upper
   yaw:
     id: 1
-    series: AX
+    series: 1
     cw_angle_limit: 307
     ccw_angle_limit: 717
     cw_margin: 1

@@ -46,6 +46,7 @@ class DynamixelDriver
   bool setCWCompSlope(uint8_t id, uint8_t slope);
   bool setCCWCompSlope(uint8_t id, uint8_t slope);
   bool setGoalPosition(uint8_t id, uint16_t goal);
+  bool setGoalRadians(uint8_t id, double goal);
   bool setMovingSpeed(uint8_t id, uint16_t speed);
   bool setTorqueLimit(uint8_t id, uint16_t torque);
   bool setPunch(uint8_t id, uint16_t punch);
@@ -63,6 +64,7 @@ class DynamixelDriver
   bool getMovingSpeed(uint8_t id, uint16_t *speed);
   bool getTorqueLimit(uint8_t id, uint16_t *torque);
   bool getPresentPosition(uint8_t id, uint16_t *position);
+  bool getPresentRadians(uint8_t id, double &radians);
   bool getPresentSpeed(uint8_t id, uint16_t *pres_speed);
   bool getPresentLoad(uint8_t id, uint16_t *load);
   bool getPresentVoltage(uint8_t id, uint8_t *voltage);
